@@ -1,0 +1,78 @@
+Exam Timer System
+A web-based countdown timer system for managing multiple exam timers in an invigilation setting. Designed to allow flexible setup, start, and monitoring of multiple exam durations. Built with HTML, CSS, and JavaScript.
+
+Features
+Venue Display: Set and display the exam venue name.
+Multiple Timers: Add multiple timers with custom module codes and durations.
+Central Start Button: Start all timers at once with a single button click.
+Flexible Timer Management: Remove individual timers as needed.
+Fullscreen Mode: Toggle fullscreen mode for an unobstructed view.
+Warning Indicators: Red warning color appears when timers reach the final 5 minutes.
+Auto-Stopping: Timers visually mark when they reach zero.
+Demo
+
+Installation
+Clone this repository:
+
+bash
+Copy code
+git clone https://github.com/your-username/exam-timer-system.git
+cd exam-timer-system
+Open index.html in a web browser.
+
+Usage
+Set the Venue Name by typing in the input box and clicking Set Venue.
+Add timers by entering the Module Code, Hours, and Minutes and clicking Add Timer.
+Once all timers are set, click START ALL TIMERS at the bottom to begin all countdowns.
+Individual timers can be removed using the Remove button.
+Toggle fullscreen mode using the Fullscreen button at the top-right.
+Contributing
+Fork the repository.
+
+Create a new branch:
+
+bash
+Copy code
+git checkout -b feature/your-feature
+Make your changes and commit them:
+
+bash
+Copy code
+git commit -m "Add your feature"
+Push to the branch:
+
+bash
+Copy code
+git push origin feature/your-feature
+Create a Pull Request.
+
+License
+This project is licensed under the GPL-3.0 License. See the LICENSE file for details.
+
+Adding the GPL License
+To add the GNU General Public License (GPL) version 3.0 to your project:
+
+Create a file named LICENSE in the root directory of your repository.
+
+Copy the following text into the LICENSE file:
+
+plaintext
+Copy code
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+
+Copyright (C) <2024>  <Eon/don't care>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+Replace <2024> and <Your Name> with the current year and your name.
