@@ -16,9 +16,9 @@ Clone this repository:
 
 bash
 Copy code
-git clone https://github.com/your-username/exam-timer-system.git
+git clone https://github.com/Eron-Minsk/timer
 cd exam-timer-system
-Open index.html in a web browser.
+Open test.html in a web browser.
 
 Usage
 Set the Venue Name by typing in the input box and clicking Set Venue.
@@ -61,7 +61,7 @@ Copy code
 GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 
-Copyright (C) <2024>  <Eon/don't care>
+Copyright (C) <2024>  <Eron/don't care>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -75,4 +75,4 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-Replace <2024> and <Your Name> with the current year and your name.
+Replace <2024> and <eron> with the current year and your name.
