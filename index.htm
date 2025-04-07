@@ -2,14 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invigilation Timer</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        :root {
+            --primary-color: #B87333;  /* Copper */
+            --accent-color: #704214;   /* Bronze */
+            --warning-color: #FF4C4C;
+            --success-color: #45B39D;
+            --background-color: #2C2C2C;
+            --card-color: #373737;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace;
+            background-color: var(--background-color);
+            background-image: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Cpath d="M0 0h20L0 20z"/%3E%3C/g%3E%3C/svg%3E');
+            color: #D4AF37;  /* Gold */
             margin: 0;
             padding: 20px;
-            background-color: #f0f0f0;
             min-height: 100vh;
             position: relative;
             padding-bottom: 100px; /* Space for the start button */
@@ -23,71 +35,170 @@
         #venue-display {
             font-size: 52px;
             font-weight: bold;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         #setup-container {
-            background: white;
-            padding: 20px;
+            background: var(--card-color);
+            border: 3px solid var(--primary-color);
+            padding: 25px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
 
         #timers-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
             margin-top: 20px;
-            margin-bottom: 80px; /* Space for start button */
+            margin-bottom: 80px;
         }
 
         .timer {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            flex: 1;
-            min-width: 80px;
-            text-align: center;
+            background: var(--card-color);
+            border: 4px solid var(--primary-color);
+            border-radius: 0;
+            box-shadow: inset 0 0 15px rgba(184, 115, 51, 0.3);
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .timer::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 2px solid #B87333;
+            pointer-events: none;
         }
 
         .timer h2 {
-            margin: 0 0 10px 0;
-            font-size: 48px;
+            color: #D4AF37;
+            font-family: 'Georgia', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .time-display {
-            font-size: 60px;
-            font-weight: bold;
-            margin: 10px 0;
-            font-family: monospace;
+            font-size: 64px;
+            font-family: 'Courier New', monospace;
+            color: #FFF;
+            text-shadow: 0 0 10px var(--primary-color);
+            background: linear-gradient(45deg, #2C2C2C, #373737);
+            padding: 20px;
+            border: 2px solid var(--primary-color);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .warning .time-display {
+            color: var(--warning-color);
+            text-shadow: 0 0 20px var(--warning-color);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 12px;
+            background: linear-gradient(to right, #B87333, #D4AF37);
+            border-top: 2px solid #704214;
+            transition: width 1s linear;
         }
 
         button {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--accent-color);
+            border: 2px solid var(--primary-color);
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: all 0.3s;
             padding: 10px 20px;
-            border: none;
             border-radius: 4px;
             cursor: pointer;
             margin: 5px;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #8B5E3C;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 0 15px var(--primary-color);
+            text-shadow: 0 0 5px #FFF;
+        }
+
+        .timer-btn:hover {
+            box-shadow: 0 0 20px var(--primary-color);
+            text-shadow: 0 0 5px #FFF;
+        }
+
+        #start-all:hover {
+            background-color: #8B5E3C;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3), 0 0 25px var(--primary-color);
+            text-shadow: 0 0 10px #D4AF37;
+        }
+
+        .remove-timer:hover {
+            background-color: #da190b;
+            box-shadow: 0 0 15px var(--warning-color);
+            text-shadow: 0 0 5px #FFF;
+        }
+
+        #fullscreen-btn:hover {
+            background-color: #1976D2;
+            box-shadow: 0 0 15px var(--primary-color);
+            text-shadow: 0 0 5px #FFF;
         }
 
         input {
-            padding: 8px;
+            background-color: #2C2C2C;
+            border: 2px solid var(--primary-color);
+            color: #D4AF37;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
             margin: 5px;
-            border: 1px solid #ddd;
             border-radius: 4px;
         }
 
+        input::placeholder {
+            color: #8B5E3C;
+        }
+
         .remove-timer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            font-size: 24px;
+            border-radius: 50%;
+            min-width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: #f44336;
-            padding: 5px 10px;
-            font-size: 20px;
         }
 
         .remove-timer:hover {
@@ -95,18 +206,19 @@
         }
 
         .warning {
-            color: #f44336;
+            color: var(--warning-color);
         }
 
         .finished {
-            background-color: #ffebee;
+            background-color: #3C3C3C;
+            opacity: 0.8;
         }
 
         #fullscreen-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #2196F3;
+            background-color: var(--primary-color);
         }
 
         #fullscreen-btn:hover {
@@ -125,16 +237,34 @@
         }
 
         #start-all {
-            background-color: #E91E63;
+            background: var(--accent-color);
+            border: 3px solid var(--primary-color);
+            font-family: 'Georgia', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
             font-size: 20px;
             padding: 15px 40px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.2s;
+            font-weight: bold;
+        }
+
+        #start-all::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 1px solid #D4AF37;
+            pointer-events: none;
         }
 
         #start-all:hover {
-            background-color: #D81B60;
+            background-color: #8B5E3C;
             transform: scale(1.05);
         }
 
@@ -142,6 +272,47 @@
             background-color: #ccc;
             cursor: not-allowed;
             transform: none;
+        }
+
+        #pause-all, #reset-all {
+            background: var(--accent-color);
+            border: 3px solid var(--primary-color);
+            font-family: 'Georgia', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 20px;
+            padding: 15px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            font-weight: bold;
+        }
+
+        #pause-all.active {
+            background-color: var(--warning-color);
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .timer-btn {
+            background: var(--accent-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 16px;
+            font-size: 14px;
+            min-width: 80px;
+        }
+
+        .timer-btn.paused {
+            background-color: var(--warning-color);
+        }
+
+        .timer.paused .time-display {
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -157,12 +328,18 @@
         <input type="number" id="hours" placeholder="Hours" min="0">
         <input type="number" id="minutes" placeholder="Minutes" min="0">
         <button onclick="addTimer()">Add Timer</button>
+        <div class="config-controls">
+            <button onclick="saveTimers()">Save Configuration</button>
+            <button onclick="loadTimers()">Load Configuration</button>
+        </div>
     </div>
 
     <div id="timers-container"></div>
 
     <div id="start-all-container">
         <button onclick="startAllTimers()" id="start-all">START ALL TIMERS</button>
+        <button onclick="pauseAllTimers()" id="pause-all">PAUSE ALL</button>
+        <button onclick="resetAllTimers()" id="reset-all">RESET ALL</button>
     </div>
 
     <button id="fullscreen-btn" onclick="toggleFullscreen()">Toggle Fullscreen</button>
@@ -177,64 +354,136 @@
             document.getElementById('venue-display').textContent = venue;
         }
 
-        function addTimer() {
-            const moduleCode = document.getElementById('module-code').value;
-            const hours = parseInt(document.getElementById('hours').value) || 0;
-            const minutes = parseInt(document.getElementById('minutes').value) || 0;
+        function validateInput(moduleCode, hours, minutes) {
+            if (!moduleCode || moduleCode.trim() === '') {
+                alert('Please enter a valid module code');
+                return false;
+            }
 
-            if (!moduleCode) {
-                alert('Please enter a module code');
-                return;
+            if (isNaN(hours) || isNaN(minutes)) {
+                alert('Hours and minutes must be valid numbers');
+                return false;
+            }
+
+            if (hours < 0 || minutes < 0) {
+                alert('Time values cannot be negative');
+                return false;
+            }
+
+            if (minutes >= 60) {
+                alert('Minutes must be less than 60');
+                return false;
             }
 
             if (hours === 0 && minutes === 0) {
                 alert('Please enter a valid time');
+                return false;
+            }
+
+            if (hours > 24) {
+                alert('Maximum time limit is 24 hours');
+                return false;
+            }
+
+            return true;
+        }
+
+        function addTimer() {
+            const moduleCode = document.getElementById('module-code').value.trim();
+            const hours = parseInt(document.getElementById('hours').value) || 0;
+            const minutes = parseInt(document.getElementById('minutes').value) || 0;
+
+            if (!validateInput(moduleCode, hours, minutes)) {
                 return;
             }
 
             const totalSeconds = (hours * 3600) + (minutes * 60);
             const timerId = Date.now();
 
-            const timerDiv = document.createElement('div');
-            timerDiv.className = 'timer';
-            timerDiv.id = `timer-${timerId}`;
-            timerDiv.innerHTML = `
-                <h2>${moduleCode}</h2>
-                <div class="time-display">
-                    ${formatTime(totalSeconds)}
-                </div>
-                <button class="remove-timer" onclick="removeTimer(${timerId})">Remove</button>
-            `;
+            // Check for duplicate module codes
+            if (timers.some(timer => timer.moduleCode === moduleCode)) {
+                alert('A timer for this module code already exists');
+                return;
+            }
 
-            document.getElementById('timers-container').appendChild(timerDiv);
+            // Limit maximum number of timers
+            if (timers.length >= 10) {
+                alert('Maximum number of timers (10) reached');
+                return;
+            }
 
-            timers.push({
-                id: timerId,
-                moduleCode: moduleCode,
-                remainingTime: totalSeconds,
-                originalTime: totalSeconds
-            });
+            // Create timer UI and add to array
+            try {
+                const timerDiv = document.createElement('div');
+                timerDiv.className = 'timer';
+                timerDiv.id = `timer-${timerId}`;
+                timerDiv.innerHTML = `
+                    <h2>${moduleCode}</h2>
+                    <div class="time-display">
+                        ${formatTime(totalSeconds)}
+                    </div>
+                    <div class="timer-controls">
+                        <button class="timer-btn pause-btn" onclick="pauseTimer(${timerId})">
+                            <span class="btn-text">Pause</span>
+                        </button>
+                        <button class="timer-btn reset-btn" onclick="resetTimer(${timerId})">
+                            <span class="btn-text">Reset</span>
+                        </button>
+                    </div>
+                    <div class="progress-bar" style="width: 100%"></div>
+                    <button class="remove-timer" onclick="removeTimer(${timerId})">×</button>
+                `;
 
-            // Clear input fields
-            document.getElementById('module-code').value = '';
-            document.getElementById('hours').value = '';
-            document.getElementById('minutes').value = '';
+                document.getElementById('timers-container').appendChild(timerDiv);
+
+                timers.push({
+                    id: timerId,
+                    moduleCode: moduleCode,
+                    remainingTime: totalSeconds,
+                    originalTime: totalSeconds
+                });
+
+                // Clear input fields
+                document.getElementById('module-code').value = '';
+                document.getElementById('hours').value = '';
+                document.getElementById('minutes').value = '';
+            } catch (error) {
+                console.error('Error creating timer:', error);
+                alert('An error occurred while creating the timer');
+            }
         }
 
         function startAllTimers() {
-            if (isRunning || timers.length === 0) return;
-            isRunning = true;
+            if (isRunning) {
+                alert('Timers are already running');
+                return;
+            }
 
-            timers.forEach((timer, index) => {
-                timerIntervals[index] = setInterval(() => {
-                    updateTimer(timer);
-                }, 1000);
-            });
+            if (timers.length === 0) {
+                alert('Please add at least one timer before starting');
+                return;
+            }
 
-            document.getElementById('start-all').disabled = true;
+            try {
+                isRunning = true;
+                timers.forEach((timer, index) => {
+                    timerIntervals[index] = setInterval(() => {
+                        updateTimer(timer);
+                    }, 1000);
+                });
+
+                document.getElementById('start-all').disabled = true;
+                document.getElementById('setup-container').style.display = 'none';
+            } catch (error) {
+                console.error('Error starting timers:', error);
+                alert('An error occurred while starting the timers');
+                isRunning = false;
+            }
         }
 
         function updateTimer(timer) {
+            if (timer.isPaused || timer.remainingTime <= 0) return;
+
             if (timer.remainingTime <= 0) {
                 const timerElement = document.getElementById(`timer-${timer.id}`);
                 timerElement.classList.add('finished');
@@ -244,22 +493,77 @@
             timer.remainingTime--;
             const timerElement = document.getElementById(`timer-${timer.id}`);
             const timeDisplay = timerElement.querySelector('.time-display');
+            const progressBar = timerElement.querySelector('.progress-bar');
+            
             timeDisplay.textContent = formatTime(timer.remainingTime);
+            
+            // Update progress bar
+            const progressPercent = (timer.remainingTime / timer.originalTime) * 100;
+            progressBar.style.width = `${progressPercent}%`;
 
-            if (timer.remainingTime <= 300) { // 5 minutes warning
+            if (timer.remainingTime <= 300) {
                 timeDisplay.classList.add('warning');
+                progressBar.style.backgroundColor = 'var(--warning-color)';
             }
         }
 
-        function removeTimer(timerId) {
-            const index = timers.findIndex(t => t.id === timerId);
-            if (index > -1) {
-                clearInterval(timerIntervals[index]);
-                timerIntervals.splice(index, 1);
-                timers.splice(index, 1);
-            }
+        function pauseTimer(timerId) {
+            const timer = timers.find(t => t.id === timerId);
+            if (!timer) return;
+
             const timerElement = document.getElementById(`timer-${timerId}`);
-            timerElement.remove();
+            const pauseBtn = timerElement.querySelector('.pause-btn');
+            
+            if (timer.isPaused) {
+                // Resume timer
+                timer.isPaused = false;
+                timerElement.classList.remove('paused');
+                pauseBtn.innerHTML = '<span class="btn-text">Pause</span>';
+                pauseBtn.classList.remove('paused');
+            } else {
+                // Pause timer
+                timer.isPaused = true;
+                timerElement.classList.add('paused');
+                pauseBtn.innerHTML = '<span class="btn-text">Resume</span>';
+                pauseBtn.classList.add('paused');
+            }
+        }
+
+        function resetTimer(timerId) {
+            const timer = timers.find(t => t.id === timerId);
+            if (!timer) return;
+
+            timer.remainingTime = timer.originalTime;
+            timer.isPaused = false;
+
+            const timerElement = document.getElementById(`timer-${timerId}`);
+            const timeDisplay = timerElement.querySelector('.time-display');
+            const progressBar = timerElement.querySelector('.progress-bar');
+            const pauseBtn = timerElement.querySelector('.pause-btn');
+
+            timeDisplay.textContent = formatTime(timer.remainingTime);
+            progressBar.style.width = '100%';
+            timerElement.classList.remove('paused', 'warning', 'finished');
+            pauseBtn.innerHTML = '<span class="btn-text">Pause</span>';
+            pauseBtn.classList.remove('paused');
+        }
+
+        function removeTimer(timerId) {
+            try {
+                const index = timers.findIndex(t => t.id === timerId);
+                if (index > -1) {
+                    clearInterval(timerIntervals[index]);
+                    timerIntervals.splice(index, 1);
+                    timers.splice(index, 1);
+                }
+                const timerElement = document.getElementById(`timer-${timerId}`);
+                if (timerElement) {
+                    timerElement.remove();
+                }
+            } catch (error) {
+                console.error('Error removing timer:', error);
+                alert('An error occurred while removing the timer');
+            }
         }
 
         function formatTime(seconds) {
@@ -282,6 +586,104 @@
             const fullscreenBtn = document.getElementById('fullscreen-btn');
             fullscreenBtn.textContent = document.fullscreenElement ? 'Exit Fullscreen' : 'Toggle Fullscreen';
         });
+
+        function saveTimers() {
+            const timerConfig = {
+                venue: document.getElementById('venue-display').textContent,
+                timers: timers.map(t => ({
+                    moduleCode: t.moduleCode,
+                    originalTime: t.originalTime
+                }))
+            };
+            localStorage.setItem('timerConfig', JSON.stringify(timerConfig));
+            alert('Timer configuration saved');
+        }
+
+        function loadTimers() {
+            try {
+                const savedConfig = localStorage.getItem('timerConfig');
+                if (!savedConfig) {
+                    alert('No saved configuration found');
+                    return;
+                }
+
+                const config = JSON.parse(savedConfig);
+                
+                // Clear existing timers
+                timers.forEach(timer => removeTimer(timer.id));
+                timers = [];
+                timerIntervals = [];
+                
+                // Set venue
+                document.getElementById('venue-display').textContent = config.venue || '';
+                
+                // Add saved timers
+                config.timers.forEach(t => {
+                    const hours = Math.floor(t.originalTime / 3600);
+                    const minutes = Math.floor((t.originalTime % 3600) / 60);
+                    document.getElementById('module-code').value = t.moduleCode;
+                    document.getElementById('hours').value = hours;
+                    document.getElementById('minutes').value = minutes;
+                    addTimer();
+                });
+            } catch (error) {
+                console.error('Error loading timer configuration:', error);
+                alert('Error loading saved configuration');
+            }
+        }
+
+        function pauseAllTimers() {
+            const pauseAllBtn = document.getElementById('pause-all');
+            const allPaused = timers.every(timer => timer.isPaused);
+            
+            timers.forEach(timer => {
+                const timerElement = document.getElementById(`timer-${timer.id}`);
+                const pauseBtn = timerElement.querySelector('.pause-btn');
+                
+                if (allPaused) {
+                    // Resume all
+                    timer.isPaused = false;
+                    timerElement.classList.remove('paused');
+                    pauseBtn.innerHTML = '<span class="btn-text">Pause</span>';
+                    pauseBtn.classList.remove('paused');
+                    pauseAllBtn.textContent = 'PAUSE ALL';
+                    pauseAllBtn.classList.remove('active');
+                } else {
+                    // Pause all
+                    timer.isPaused = true;
+                    timerElement.classList.add('paused');
+                    pauseBtn.innerHTML = '<span class="btn-text">Resume</span>';
+                    pauseBtn.classList.add('paused');
+                    pauseAllBtn.textContent = 'RESUME ALL';
+                    pauseAllBtn.classList.add('active');
+                }
+            });
+        }
+
+        function resetAllTimers() {
+            if (confirm('Are you sure you want to reset all timers?')) {
+                timers.forEach(timer => {
+                    timer.remainingTime = timer.originalTime;
+                    timer.isPaused = false;
+
+                    const timerElement = document.getElementById(`timer-${timer.id}`);
+                    const timeDisplay = timerElement.querySelector('.time-display');
+                    const progressBar = timerElement.querySelector('.progress-bar');
+                    const pauseBtn = timerElement.querySelector('.pause-btn');
+
+                    timeDisplay.textContent = formatTime(timer.remainingTime);
+                    progressBar.style.width = '100%';
+                    timerElement.classList.remove('paused', 'warning', 'finished');
+                    pauseBtn.innerHTML = '<span class="btn-text">Pause</span>';
+                    pauseBtn.classList.remove('paused');
+                });
+
+                // Reset pause all button state
+                const pauseAllBtn = document.getElementById('pause-all');
+                pauseAllBtn.textContent = 'PAUSE ALL';
+                pauseAllBtn.classList.remove('active');
+            }
+        }
     </script>
 </body>
 </html>
