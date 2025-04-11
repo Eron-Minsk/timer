@@ -1,76 +1,105 @@
-Invigilation Timer
-A sleek, steampunk-themed web application for managing multiple examination timers simultaneously. Perfect for exam invigilators and educational institutions.
+# Invigilation Timer
+
+A sophisticated examination timing system designed for invigilators to manage multiple concurrent exam sessions. Features a intuitive UI with accessibility considerations.
 
 Live Demo:
 
 https://eron-minsk.github.io/timer/
 
-Features
-🎯 Multiple concurrent timers
-🏛️ Venue management
-⏱️ Hours and minutes input
-⚙️ Individual timer controls (pause/resume/reset)
-🎮 Global controls for all timers
-📺 Fullscreen mode
-⚠️ Visual and color warnings for final 5 minutes
-🎨 Steampunk-inspired design
-Usage
-Enter venue information (optional)
-Add timers:
-Enter module code
-Set hours (0-24)
-Set minutes (0-59)
-Click "Add Timer" to create a new timer
-Use "Start All Timers" to begin countdown
-Control timers individually or use global controls
-Controls
-Individual Timers:
+## Features
 
-Pause/Resume
-Reset
-Remove
-Global Controls:
+- **Multi-Timer Management**
+  - Handle up to 10 concurrent exam sessions
+  - Individual timer controls for each exam
+  - Global controls for all timers
+  - Progress bars with visual warnings
 
-Start All
-Pause All
-Reset All
-Technical Details
-Pure HTML, CSS, and JavaScript
-No external dependencies
-Local storage for configuration saving
-Responsive design
-Cross-browser compatible
-Installation
-Clone the repository:
-Open index.htm in a web browser
-Features in Detail
-Timer Management
-Up to 10 concurrent timers
-Automatic progress bars
-Visual countdown displays
-Warning indicators for final 5 minutes
-Configuration
-Venue information storage
-Module code validation
-Interface
-Steampunk-themed design
-Responsive layout
-Fullscreen mode
-Copper and bronze color scheme
-Animated effects
-Browser Support
-Chrome (recommended)
-Firefox
-Safari
-Edge
-License
-MIT License - feel free to use and modify as needed.
+- **Time Management**
+  - Preset durations (1h, 1.5h, 2h, 2.5h, 3h)
+  - Add extra time (+1m, +5m) to individual or all timers
+  - Pause/Resume functionality
+  - Reset options
 
-Contributing
-Fork the repository
-Create your feature branch
-Commit your changes
-Push to the branch
-Create a new Pull Request
-Credits
-Designed and developed for exam invigilation needs. Inspired by steampunk aesthetics and industrial design.
+- **Configuration**
+  - Save and load timer configurations
+  - Venue name customization
+  - Module code validation
+  - Maximum 24-hour limit per timer
+
+- **Notifications**
+  - Visual alerts for ending timers
+  - Audio notifications
+  - Desktop notifications (with permission)
+  - Color-coded warnings
+
+- **Accessibility**
+  - High contrast mode
+  - Screen reader support
+  - ARIA labels
+  - Keyboard navigation
+  - Color scheme optimized for visual impairments
+
+- **Interface**
+  - Fullscreen mode
+  - Responsive design
+  - Aesthetic UI elements
+  - Clear visual hierarchy
+
+## Usage
+
+1. **Initial Setup**
+   - Enter venue name
+   - Click "Set Venue"
+
+2. **Adding Timers**
+   - Enter module code
+   - Set hours and minutes or use presets
+   - Click "Add Timer"
+
+3. **Starting Sessions**
+   - Configure all needed timers
+   - Click "START ALL TIMERS"
+   - Use individual or global controls as needed
+
+4. **Managing Sessions**
+   - Pause/Resume individual timers
+   - Add extra time when needed
+   - Reset timers if required
+   - Remove timers when complete
+
+## Color Scheme
+
+- Primary: Purple
+- Accent: Teal
+- Neutral: Grey
+
+High Contrast Mode:
+- #00bf7d (Green)
+- #00b4c5 (Bright Teal)
+- #0073e6 (Blue)
+- #2546f0 (Royal Blue)
+- #5928ed (Deep Purple)
+
+## Technical Details
+
+- Pure HTML/CSS/JavaScript implementation
+- No external dependencies
+- LocalStorage for configuration persistence
+- Web Notifications API integration
+
+## Browser Support
+
+- Chrome (recommended)
+- Firefox (recommeneded)
+- Edge
+- Safari
+
+## Installation
+
+1. Clone the repository
+2. Open `index.htm` in a modern web browser
+3. Allow notifications if desired
+
+## License
+
+MIT License
