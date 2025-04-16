@@ -645,6 +645,22 @@
             box-shadow: 0 0 15px var(--primary-color);
             text-shadow: none;
         }
+
+        #date-time-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px; /* Increase font size */
+            font-family: 'Courier New', monospace;
+            color: var(--accent-color);
+            background-color: var(--card-color);
+            padding: 15px 20px; /* Increase padding for better spacing */
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -690,6 +706,8 @@
     <button id="fullscreen-btn" onclick="toggleFullscreen()" aria-label="Toggle Fullscreen">
         <span aria-hidden="true">⛶</span>
     </button>
+
+    <div id="date-time-display"></div>
 
     <div id="help-overlay" class="hidden">
         <div id="help-popup">
@@ -1081,19 +1099,16 @@
                     timer.isPaused = false;
                     timerElement.classList.remove('paused');
                     pauseBtn.innerHTML = '<span class="btn-text">Pause</span>';
-                    pauseBtn.classList.remove('paused');
-                    pauseAllBtn.textContent = 'PAUSE ALL';
-                    pauseAllBtn.classList.remove('active');
                 } else {
                     // Pause all
                     timer.isPaused = true;
                     timerElement.classList.add('paused');
                     pauseBtn.innerHTML = '<span class="btn-text">Resume</span>';
-                    pauseBtn.classList.add('paused');
-                    pauseAllBtn.textContent = 'RESUME ALL';
-                    pauseAllBtn.classList.add('active');
                 }
             });
+
+            pauseAllBtn.textContent = allPaused ? 'PAUSE ALL' : 'RESUME ALL';
+            pauseAllBtn.classList.toggle('active', !allPaused);
         }
 
         function resetAllTimers() {
@@ -1101,19 +1116,16 @@
                 timers.forEach(timer => {
                     timer.remainingTime = timer.originalTime;
                     timer.isPaused = false;
-                    
                     const timerElement = document.getElementById(`timer-${timer.id}`);
                     const timeDisplay = timerElement.querySelector('.time-display');
                     const progressBar = timerElement.querySelector('.progress-bar');
                     const pauseBtn = timerElement.querySelector('.pause-btn');
-
                     timeDisplay.textContent = formatTime(timer.remainingTime);
                     progressBar.style.width = '100%';
                     timerElement.classList.remove('paused', 'warning', 'finished');
                     pauseBtn.innerHTML = '<span class="btn-text">Pause</span>';
                     pauseBtn.classList.remove('paused');
                 });
-
                 const pauseAllBtn = document.getElementById('pause-all');
                 pauseAllBtn.textContent = 'PAUSE ALL';
                 pauseAllBtn.classList.remove('active');
@@ -1132,7 +1144,7 @@
             const timerElement = document.getElementById(`timer-${timerId}`);
             timerElement.classList.add('finished');
 
-            // Desktop notification
+            // Desktop notifications
             if (Notification.permission === 'granted') {
                 new Notification('Timer Complete', {
                     body: `${timer.moduleCode} exam time has ended`,
@@ -1151,7 +1163,6 @@
         function usePreset(minutes) {
             const hours = Math.floor(minutes / 60);
             const remainingMinutes = minutes % 60;
-            
             document.getElementById('hours').value = hours;
             document.getElementById('minutes').value = remainingMinutes;
             
@@ -1167,11 +1178,11 @@
         function showHelp() {
             document.getElementById('help-overlay').classList.remove('hidden');
         }
-
+            
         function hideHelp() {
             document.getElementById('help-overlay').classList.add('hidden');
         }
-
+        
         // Keep the click-outside-to-close functionality
         document.getElementById('help-overlay').addEventListener('click', (e) => {
             if (e.target.id === 'help-overlay') {
@@ -1196,6 +1207,25 @@
                 btn.style.color = '#D4AF37';
             }
         }
+
+        function updateDateTime() {
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString('en-GB', {
+                weekday: 'short',
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+            const formattedTime = now.toLocaleTimeString('en-GB', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('date-time-display').textContent = `${formattedDate} ${formattedTime}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', updateDateTime);
+        setInterval(updateDateTime, 1000);
     </script>
 </body>
 </html>
