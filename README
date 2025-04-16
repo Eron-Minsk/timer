@@ -1,105 +1,111 @@
 # Invigilation Timer
 
-A sophisticated examination timing system designed for invigilators to manage multiple concurrent exam sessions. Features a intuitive UI with accessibility considerations.
+A browser-based examination timing system built for invigilators handling multiple sessions simultaneously. Designed with a clean, responsive interface and strong accessibility support.
 
-Live Demo:
+**Live Demo:**  
+👉 [Try it here](https://eron-minsk.github.io/timer/)
 
-https://eron-minsk.github.io/timer/
+---
 
-## Features
+## 🔧 Features
 
-- **Multi-Timer Management**
-  - Handle up to 10 concurrent exam sessions
-  - Individual timer controls for each exam
-  - Global controls for all timers
-  - Progress bars with visual warnings
+### 🕒 Multi-Timer Control
+- Manage up to 10 independent exam sessions
+- Individual start/pause/reset controls
+- Global control panel for all timers
+- Progress bars with visual alerts
 
-- **Time Management**
-  - Preset durations (1h, 1.5h, 2h, 2.5h, 3h)
-  - Add extra time (+1m, +5m) to individual or all timers
-  - Pause/Resume functionality
-  - Reset options
+### ⏱ Time Management
+- Quick presets: 1h, 1.5h, 2h, 2.5h, 3h
+- Add extra time (+1m / +5m) per timer or globally
+- Pause/resume any timer
+- Reset or remove timers as needed
 
-- **Configuration**
-  - Save and load timer configurations
-  - Venue name customization
-  - Module code validation
-  - Maximum 24-hour limit per timer
+### ⚙️ Configuration & Setup
+- Save/load custom timer setups
+- Custom venue name
+- Module code input with validation
+- Max duration: 24 hours per timer
 
-- **Notifications**
-  - Visual alerts for ending timers
-  - Audio notifications
-  - Desktop notifications (with permission)
-  - Color-coded warnings
+### 🔔 Notifications
+- Visual alerts when timers near completion
+- Optional audio and desktop notifications
+- Color-coded warning states
 
-- **Accessibility**
-  - High contrast mode
-  - Screen reader support
-  - ARIA labels
-  - Keyboard navigation
-  - Color scheme optimized for visual impairments
+### ♿ Accessibility
+- High contrast mode
+- ARIA labels for screen readers
+- Full keyboard navigation
+- Color scheme optimized for visual impairments
 
-- **Interface**
-  - Fullscreen mode
-  - Responsive design
-  - Aesthetic UI elements
-  - Clear visual hierarchy
+### 🖥 Interface
+- Fullscreen mode for clear visibility
+- Responsive layout for all devices
+- Minimalist, distraction-free UI
+- Logical visual hierarchy for ease of use
 
-## Usage
+---
 
-1. **Initial Setup**
-   - Enter venue name
-   - Click "Set Venue"
+## 🚀 Getting Started
 
-2. **Adding Timers**
-   - Enter module code
-   - Set hours and minutes or use presets
+1. **Set up your venue**
+   - Enter venue name → click "Set Venue"
+
+2. **Add exam timers**
+   - Input module code and duration (or use a preset)
    - Click "Add Timer"
 
-3. **Starting Sessions**
-   - Configure all needed timers
-   - Click "START ALL TIMERS"
+3. **Start the exam session**
+   - Once all timers are ready → click "START ALL TIMERS"
    - Use individual or global controls as needed
 
-4. **Managing Sessions**
-   - Pause/Resume individual timers
-   - Add extra time when needed
-   - Reset timers if required
-   - Remove timers when complete
+4. **Manage ongoing sessions**
+   - Pause, resume, add time, or reset as necessary
+   - Remove timers when sessions conclude
 
-## Color Scheme
+---
 
-- Primary: Purple
-- Accent: Teal
-- Neutral: Grey
+## 🎨 Color Scheme
 
-High Contrast Mode:
-- #00bf7d (Green)
-- #00b4c5 (Bright Teal)
-- #0073e6 (Blue)
-- #2546f0 (Royal Blue)
-- #5928ed (Deep Purple)
+- **Primary:** Purple  
+- **Accent:** Teal  
+- **Neutral:** Grey  
 
-## Technical Details
+**High Contrast Mode:**
+- Green: `#00bf7d`  
+- Bright Teal: `#00b4c5`  
+- Blue: `#0073e6`  
+- Royal Blue: `#2546f0`  
+- Deep Purple: `#5928ed`  
 
-- Pure HTML/CSS/JavaScript implementation
-- No external dependencies
-- LocalStorage for configuration persistence
-- Web Notifications API integration
+---
 
-## Browser Support
+## ⚙️ Technical Overview
 
-- Chrome (recommended)
-- Firefox (recommeneded)
-- Edge
-- Safari
+- Built with vanilla **HTML, CSS, and JavaScript**
+- No external libraries or frameworks
+- Configuration saved using `localStorage`
+- Uses the **Web Notifications API** (optional)
 
-## Installation
+---
 
-1. Clone the repository
-2. Open `index.htm` in a modern web browser
-3. Allow notifications if desired
+## 🌐 Browser Support
 
-## License
+- ✅ Chrome (recommended)  
+- ✅ Firefox (recommended)  
+- ✅ Edge  
+- ✅ Safari  
 
-MIT License
+---
+
+## 📦 Installation
+
+1. Clone this repo
+2. Open `index.htm` in any modern browser
+3. Grant notification permissions when prompted (optional)
+
+---
+
+## 📄 License
+
+[MIT License](LICENSE)
