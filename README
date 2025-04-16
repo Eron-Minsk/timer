@@ -1,4 +1,4 @@
-# Invigilation Timer
+# 🕒 Invigilation Timer
 
 A browser-based examination timing system built for invigilators handling multiple sessions simultaneously. Designed with a clean, responsive interface and strong accessibility support.
 
@@ -49,16 +49,13 @@ A browser-based examination timing system built for invigilators handling multip
 ## 🚀 Getting Started
 
 1. **Set up your venue**
-   - Enter venue name → click "Set Venue"
-
+   - Enter venue name → click **Set Venue**
 2. **Add exam timers**
    - Input module code and duration (or use a preset)
-   - Click "Add Timer"
-
+   - Click **Add Timer**
 3. **Start the exam session**
-   - Once all timers are ready → click "START ALL TIMERS"
+   - Once all timers are ready → click **START ALL TIMERS**
    - Use individual or global controls as needed
-
 4. **Manage ongoing sessions**
    - Pause, resume, add time, or reset as necessary
    - Remove timers when sessions conclude
@@ -76,7 +73,7 @@ A browser-based examination timing system built for invigilators handling multip
 - Bright Teal: `#00b4c5`  
 - Blue: `#0073e6`  
 - Royal Blue: `#2546f0`  
-- Deep Purple: `#5928ed`  
+- Deep Purple: `#5928ed`
 
 ---
 
@@ -94,7 +91,7 @@ A browser-based examination timing system built for invigilators handling multip
 - ✅ Chrome (recommended)  
 - ✅ Firefox (recommended)  
 - ✅ Edge  
-- ✅ Safari  
+- ✅ Safari
 
 ---
 
@@ -108,4 +105,4 @@ A browser-based examination timing system built for invigilators handling multip
 
 ## 📄 License
 
-[MIT License](LICENSE)
+MIT License
