@@ -741,7 +741,8 @@
     </div>
 
     <audio id="timer-complete-sound">
-        <source src="data:audio/mpeg;base64,//OkZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAqAABwAABQUFBQUFBQUFBQkJCQkJCQkJCQsLCwsLCwsLCwsNDQ0NDQ0NDQ0PHx8fHx8fHx8fH///////////////8AAAA5TEFNRTMuOTlyAc0AAAAAAAAAABSAJAJAQgAAgAAAAHDoeeYAAAAAAAAAAAAAAAAAAAAA//NUZAAAAAGkAAAAAAAAgGQAAAABN2YQGAwMDFBQYGBggICAgIDA4ODhAQEBAYEBQcEBQUFBgYGBQYHBQUGBQQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBB//NkZAgIbAGEAQAAAAAAoAAggAAABQMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA" type="audio/mpeg">
+        <source src="elapsed.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <script>
@@ -1123,7 +1124,7 @@
             const timer = timers.find(t => t.id === timerId);
             if (!timer) return;
 
-            // Play sound
+            // Play the new sound
             const audio = document.getElementById('timer-complete-sound');
             audio.play().catch(error => console.log('Error playing sound:', error));
 
