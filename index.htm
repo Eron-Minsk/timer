@@ -876,7 +876,12 @@
         function enableAudioPlayback() {
             if (!audioEnabled) {
                 const audio = document.getElementById('timer-complete-sound');
-                audio.play().catch(() => {}); // Try to unlock audio
+                // Try to unlock audio context without playing the alarm
+                audio.muted = true;
+                audio.play().catch(() => {});
+                audio.pause();
+                audio.currentTime = 0;
+                audio.muted = false;
                 audioEnabled = true;
                 document.removeEventListener('click', enableAudioPlayback);
             }
@@ -1209,8 +1214,8 @@
         function showUndoButton() {
             const undoButton = document.getElementById('undo-button');
             undoButton.style.display = 'block';
-            // Auto-hide after 5 seconds
-            setTimeout(hideUndoButton, 5000);
+            // Auto-hide after 15 seconds (was 5 seconds)
+            setTimeout(hideUndoButton, 15000);
         }
 
         function hideUndoButton() {
@@ -1292,6 +1297,10 @@
                 timers.forEach(timer => {
                     timer.remainingTime = timer.originalTime;
                     timer.isPaused = false;
+                    if (timer.intervalId) {
+                        clearInterval(timer.intervalId);
+                        timer.intervalId = null;
+                    }
                     const timerElement = document.getElementById(`timer-${timer.id}`);
                     const timeDisplay = timerElement.querySelector('.time-display');
                     const progressBar = timerElement.querySelector('.progress-bar');
@@ -1305,6 +1314,11 @@
                 const pauseAllBtn = document.getElementById('pause-all');
                 pauseAllBtn.textContent = 'PAUSE ALL';
                 pauseAllBtn.classList.remove('active');
+
+                // FIX: Re-enable start button and show setup container
+                document.getElementById('start-all').disabled = false;
+                document.getElementById('setup-container').style.display = '';
+                isRunning = false;
             }
         }
 
