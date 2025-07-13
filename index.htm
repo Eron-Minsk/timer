@@ -814,6 +814,13 @@
     <button id="light-mode-btn" aria-label="Toggle Light Mode" onclick="toggleLightMode()">
         <span aria-hidden="true">☀️</span>
     </button>
+    <!-- Add these after your other fixed buttons -->
+    <button id="zoom-in-btn" aria-label="Zoom In" style="position:fixed;top:20px;left:320px;width:44px;height:44px;border-radius:50%;font-size:24px;background-color:var(--primary-color);color:#D4AF37;display:flex;align-items:center;justify-content:center;z-index:1000;border:2px solid var(--primary-color);">
+        <span aria-hidden="true">+</span>
+    </button>
+    <button id="zoom-out-btn" aria-label="Zoom Out" style="position:fixed;top:20px;left:380px;width:44px;height:44px;border-radius:50%;font-size:24px;background-color:var(--primary-color);color:#D4AF37;display:flex;align-items:center;justify-content:center;z-index:1000;border:2px solid var(--primary-color);">
+        <span aria-hidden="true">−</span>
+    </button>
     <div id="aria-live" aria-live="polite" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
     <div id="venue-container">
         <input type="text" id="venue-input" placeholder="Enter Venue">
@@ -896,6 +903,7 @@
         let isRunning = false;
         let lastRemovedTimer = null;
         let audioEnabled = false;
+        let currentZoom = 1;
 
         function enableAudioPlayback() {
             if (!audioEnabled) {
@@ -1482,6 +1490,28 @@
                     pauseTimer(timerId);
                     e.preventDefault();
                 }
+            }
+        });
+
+        document.getElementById('zoom-in-btn').addEventListener('click', function() {
+            currentZoom = Math.min(currentZoom + 0.1, 2); // Max 200%
+            document.body.style.zoom = currentZoom;
+        });
+
+        document.getElementById('zoom-out-btn').addEventListener('click', function() {
+            currentZoom = Math.max(currentZoom - 0.1, 0.5); // Min 50%
+            document.body.style.zoom = currentZoom;
+        });
+
+        // Optional: Keyboard shortcuts for zoom
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === '+' || e.key === '=')) {
+                currentZoom = Math.min(currentZoom + 0.1, 2);
+                document.body.style.zoom = currentZoom;
+            }
+            if (e.ctrlKey && (e.key === '-' || e.key === '_')) {
+                currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                document.body.style.zoom = currentZoom;
             }
         });
     </script>
