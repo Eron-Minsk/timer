@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invigilation Timer</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+        <button id="reload-btn" onclick="location.reload()" aria-label="Reload Page">↻</button>
+    <button id="help-btn" onclick="showHelp()" aria-label="Show Help">?</button>
+    <button id="accessibility-btn" aria-label="Toggle High Contrast Mode" onclick="toggleHighContrast()">
+        <span aria-hidden="true">♿</span>
+    </button>
+    <button id="light-mode-btn" aria-label="Toggle Light Mode" onclick="toggleLightMode()">
+        <span aria-hidden="true">☀️</span>
+    </button>
+    <button id="zoom-in-btn" aria-label="Zoom In" style="position:fixed;top:20px;left:320px;width:44px;height:44px;border-radius:50%;font-size:24px;background-color:var(--primary-color);color:#D4AF37;display:flex;align-items:center;justify-content:center;z-index:1000;border:2px solid var(--primary-color);">
+        <span aria-hidden="true">+</span>
+    </button>
+    <button id="zoom-out-btn" aria-label="Zoom Out" style="position:fixed;top:20px;left:380px;width:44px;height:44px;border-radius:50%;font-size:24px;background-color:var(--primary-color);color:#D4AF37;display:flex;align-items:center;justify-content:center;z-index:1000;border:2px solid var(--primary-color);">
+        <span aria-hidden="true">−</span>
+    </button>
+    <div id="aria-live" aria-live="polite" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
+    <div id="venue-container">
+        <input type="text" id="venue-input" placeholder="Enter Venue">
+        <button onclick="setVenue()" aria-label="Set Venue">Set Venue</button>
+        <div id="venue-display"></div>
+    </div>
+
+    <div id="setup-container">
+        <input type="text" id="module-code" placeholder="Module Code">
+        <input type="number" id="hours" placeholder="Hours" min="0">
+        <input type="number" id="minutes" placeholder="Minutes" min="0">
+        <div class="preset-buttons">
+            <button onclick="usePreset(60)" class="preset-btn">1h</button>
+            <button onclick="usePreset(90)" class="preset-btn">1.5h</button>
+            <button onclick="usePreset(120)" class="preset-btn">2h</button>
+            <button onclick="usePreset(150)" class="preset-btn">2.5h</button>
+            <button onclick="usePreset(180)" class="preset-btn">3h</button>
+        </div>
+        <button onclick="addTimer()" aria-label="Add Timer">Add Timer</button>
+        <div class="config-controls">
+            <button onclick="saveTimers()" aria-label="Save Configuration">Save Configuration</button>
+            <button onclick="loadTimers()" aria-label="Load Configuration">Load Configuration</button>
+        </div>
+    </div>
+
+    <div id="timers-container"></div>
+
+    <div id="timer-counter">Active Timers: 0</div>
+
+    <div id="start-all-container">
+        <button onclick="startAllTimers()" id="start-all" aria-label="Start All Timers">START ALL TIMERS</button>
+        <button onclick="pauseAllTimers()" id="pause-all" aria-label="Pause or Resume All Timers">PAUSE ALL</button>
+        <button onclick="resetAllTimers()" id="reset-all" aria-label="Reset All Timers">RESET ALL</button>
+        <button onclick="addTimeToAll(60)" class="add-time-btn" aria-label="Add 1 Minute to All Timers">+1m ALL</button>
+        <button onclick="addTimeToAll(300)" class="add-time-btn" aria-label="Add 5 Minutes to All Timers">+5m ALL</button>
+    </div>
+
+    <button id="fullscreen-btn" onclick="toggleFullscreen()" aria-label="Toggle Fullscreen">
+        <span aria-hidden="true">⛶</span>
+    </button>
+
+    <div id="date-time-display"></div>
+
+    <button id="undo-button" onclick="undoRemove()" style="display: none;" aria-label="Undo Remove">
+        ↩ Undo Remove
+    </button>
+
+    <audio id="timer-complete-sound" src="elapsed.mp3" preload="auto"></audio>
+
+    <div id="help-overlay" class="hidden">
+        <div id="help-popup">
+            <div class="screw top-left"></div>
+            <div class="screw top-right"></div>
+            <div class="screw bottom-left"></div>
+            <div class="screw bottom-right"></div>
+            <button class="close-help" onclick="hideHelp()">×</button>
+            <h2>Invigilation Timer - Help Guide</h2>
+            <div class="help-content">
+                <section>
+                    <h3>Getting Started</h3>
+                    <ol>
+                        <li>Enter the venue name and click "Set Venue"</li>
+                        <li>Add timers by entering module code and duration</li>
+                        <li>Use preset durations for quick setup</li>
+                        <li>Click "START ALL TIMERS" to begin</li>
+                    </ol>
+                </section>
+                <section>
+                    <h3>Timer Controls</h3>
+                    <ul>
+                        <li><strong>Pause/Resume:</strong> Toggle individual timers</li>
+                        <li><strong>Reset:</strong> Return timer to original duration</li>
+                        <li><strong>+1m/+5m:</strong> Add extra time</li>
+                        <li><strong>×:</strong> Remove timer</li>
+                    </ul>
+                </section>
+                <section>
+                      <script src="./js/timer.js"></script>
+</body>
+</html>
