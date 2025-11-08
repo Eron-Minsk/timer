@@ -88,64 +88,54 @@
             }
 
 
-            try {
-                const timerDiv = document.createElement('div');
-                timerDiv.className = 'timer';
-                timerDiv.style.opacity = '0';
-                timerDiv.id = `timer-${timerId}`;
-                timerDiv.setAttribute('tabindex', '0');
-                timerDiv.setAttribute('aria-label', `Timer for ${moduleCode}`);
-                timerDiv.innerHTML = `
-                    <div class="screw top-left"></div>
-                    <div class="screw top-right"></div>
-                    <div class="screw bottom-left"></div>
-                    <div class="screw bottom-right"></div>
-                    <h2>${moduleCode}</h2>
-                    <div class="time-display">
-                        ${formatTime(totalSeconds)}
-                    </div>
-                    <div class="timer-controls">
-                        <button class="timer-btn pause-btn" onclick="pauseTimer(${timerId})">
-                            <span class="btn-text">Pause</span>
-                        </button>
-                        <button class="timer-btn reset-btn" onclick="resetTimer(${timerId})">
-                            <span class="btn-text">Reset</span>
-                        </button>
-                        <button class="timer-btn add-time-btn" onclick="addExtraTime(${timerId}, 60)">
-                            +1m
-                        </button>
-                        <button class="timer-btn add-time-btn" onclick="addExtraTime(${timerId}, 300)">
-                            +5m
-                        </button>
-                    </div>
-                    <div class="progress-bar" style="width: 100%"></div>
-                    <button class="remove-timer" onclick="removeTimer(${timerId})">×</button>
-                `;
+            // Create the timer object first
+            const timer = {
+                id: timerId,
+                moduleCode: moduleCode,
+                remainingTime: totalSeconds,
+                originalTime: totalSeconds,
+                intervalId: null,
+                isPaused: false
+            };
+            
+            // Add to array before DOM manipulation
+            timers.push(timer);
 
-                document.getElementById('timers-container').appendChild(timerDiv);
-                
+            const timerDiv = document.createElement('div');
+            timerDiv.className = 'timer';
+            timerDiv.id = `timer-${timerId}`;
+            timerDiv.setAttribute('tabindex', '0');
+            timerDiv.setAttribute('aria-label', `Timer for ${moduleCode}`);
+            timerDiv.innerHTML = `
+                <h2>${moduleCode}</h2>
+                <div class="time-display">
+                    ${formatTime(totalSeconds)}
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-btn pause-btn" onclick="pauseTimer(${timerId})">
+                        <span class="btn-text">Pause</span>
+                    </button>
+                    <button class="timer-btn reset-btn" onclick="resetTimer(${timerId})">
+                        <span class="btn-text">Reset</span>
+                    </button>
+                    <button class="timer-btn add-time-btn" onclick="addExtraTime(${timerId}, 60)">
+                        +1m
+                    </button>
+                    <button class="timer-btn add-time-btn" onclick="addExtraTime(${timerId}, 300)">
+                        +5m
+                    </button>
+                </div>
+                <div class="progress-bar" style="width: 100%"></div>
+                <button class="remove-timer" onclick="removeTimer(${timerId})">×</button>
+            `;
 
-                timerDiv.offsetHeight;
-                timerDiv.style.opacity = '';
+            // Append the timer to the container
+            document.getElementById('timers-container').appendChild(timerDiv);
 
-                timers.push({
-                    id: timerId,
-                    moduleCode: moduleCode,
-                    remainingTime: totalSeconds,
-                    originalTime: totalSeconds
-                });
-
-
-                document.getElementById('module-code').value = '';
-                document.getElementById('hours').value = '';
-                document.getElementById('minutes').value = '';
-
-
-                updateTimerCounter();
-            } catch (error) {
-                console.error('Error creating timer:', error);
-                alert('An error occurred while creating the timer');
-            }
+            // Clear input fields
+            document.getElementById('module-code').value = '';
+            document.getElementById('hours').value = '';
+            document.getElementById('minutes').value = '';
         }
 
         function startAllTimers() {
