@@ -714,20 +714,7 @@
             to { transform: translateX(0); }
         }
 
-        #timer-counter {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--card-color);
-            border: 2px solid var(--primary-color);
-            color: var(--accent-color);
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+
 
      
         @keyframes fadeIn {
